@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,3 +22,5 @@ Route::get('/create-user', function() {
         'user_id' => $user->id
     ]);
 });
+Route::post('/logout', [AuthController::class, 'logout'])
+     ->name('logout'); 

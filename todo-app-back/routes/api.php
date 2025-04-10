@@ -15,8 +15,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Logout
-Route::post('/logout', [AuthController::class, 'logout'])
-     ->middleware('auth:sanctum');
+Route::post('/logout', function (Request $request) {
+    // Revoke the current token
+    $request->user()->currentAccessToken()->delete();
+    
+    return response()->json([
+        'message' => 'Successfully logged out'
+    ]);
+})->middleware('auth:sanctum');
 
 
 
