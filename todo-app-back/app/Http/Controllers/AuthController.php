@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -25,7 +26,7 @@ class AuthController extends Controller
 
         \Log::info('Données validées:', $validated); // Log 2
 
-        $task = auth()->user()->tasks()->create($validated);
+        $task = Task::create($validated);
 
         \Log::info('Tâche créée:', $task->toArray()); // Log 3
 

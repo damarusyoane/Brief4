@@ -128,9 +128,7 @@ export const TaskList = () => {
           Réessayer
         </button>
       </div>
-    ) : tasks.length === 0 ? (
-      <p className="text-gray-500">Aucune tâche pour le moment</p>
-    ) : (
+    ): (
 
     <div className="max-w-md mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Gestionnaire de Tâches</h1>

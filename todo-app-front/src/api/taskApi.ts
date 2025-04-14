@@ -1,11 +1,12 @@
 import { Task } from '../types/task';
 
-const API_URL = 'http://localhost:8000/api'; // Remplacez par votre URL
+const API_URL = 'http://localhost:8000/api'; 
 
 export const fetchTasks = async (): Promise<Task[]> => {
   const response = await fetch(`${API_URL}/tasks`, {
     headers: {
-      'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+      'Accept': 'application/json'
     }
   });
   
@@ -32,6 +33,7 @@ export const updateTask = async (id: number, task: Partial<Task>): Promise<Task>
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('authToken')}`
     },
     body: JSON.stringify(task)
@@ -45,6 +47,8 @@ export const deleteTask = async (id: number): Promise<void> => {
   const response = await fetch(`${API_URL}/tasks/${id}`, {
     method: 'DELETE',
     headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('authToken')}`
     }
   });
@@ -56,6 +60,8 @@ export const toggleTaskStatus = async (id: number): Promise<Task> => {
   const response = await fetch(`${API_URL}/tasks/${id}/toggle`, {
     method: 'PATCH',
     headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('authToken')}`
     }
   });

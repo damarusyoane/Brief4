@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { TaskForm} from './components/TaskForm';
+import { TaskList } from './components/TaskList';
 
 
 
@@ -149,9 +150,15 @@ const Dashboard = () => {
       </div>
       
       {showForm && (
+        <>
         <div className="mb-8 bg-white p-6 rounded-lg shadow">
           <TaskForm onSubmit={handleAddTask} />
         </div>
+        <div className="mb-8 bg-white p-6 rounded-lg shadow">
+          <TaskList />
+          </div>
+          </>
+
       )}
       
     </div>
