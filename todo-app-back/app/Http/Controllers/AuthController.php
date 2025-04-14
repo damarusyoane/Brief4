@@ -12,6 +12,36 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    public function store(Request $request)
+{
+    \Log::info('Requête reçue:', $request->all()); // Log 1
+
+    try {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'completed' => 'sometimes|boolean'
+        ]);
+
+        \Log::info('Données validées:', $validated); // Log 2
+
+        $task = auth()->user()->tasks()->create($validated);
+
+        \Log::info('Tâche créée:', $task->toArray()); // Log 3
+
+        return response()->json($task, 201);
+        
+    } catch (\Exception $e) {
+        \Log::error('Erreur création tâche:', [
+            'message' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+        return response()->json([
+            'message' => 'Erreur serveur',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
     public function register(Request $request)
     {
         $request->validate([

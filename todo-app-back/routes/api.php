@@ -3,6 +3,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TaskController;
 
 // Public route
 Route::post('/login', [AuthController::class, 'login']);
@@ -31,4 +32,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/test', function() {
     return response()->json(['message' => 'API works!']);
+});
+
+// routes/api.php
+Route::middleware('auth:sanctum')->group(function () {
+    // Tâches
+    Route::get('/tasks', [TaskController::class, 'index']);
+    Route::post('/tasks', [TaskController::class, 'store']);
+    Route::put('/tasks/{task}', [TaskController::class, 'update']);
+    Route::delete('/tasks/{task}', [TaskController::class, 'destroy']);
+    Route::patch('/tasks/{task}/toggle', [TaskController::class, 'toggle']);
 });
